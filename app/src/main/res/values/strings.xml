@@ -5,6 +5,13 @@
     <string name="hello_world">Hello world!!!!</string>
     <string name="action_settings">Settings</string>
 
+    <!-- Swipe View tab names -->
+    <string name="title_filters">Filters</string>
+    <string name="title_map">Map</string>
+    <string name="title_nearby">Nearby</string>
+    <string name="title_restaurant">Restaurant</string>
+    <string name="title_review">Review</string>
+
     <!-- Positive filters -->
     <string name="filter_vegan">Vegan</string>
     <string name="filter_vegetarian">Vegetarian</string>
