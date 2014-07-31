@@ -6,7 +6,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 
-public class mainMap extends Activity {
+public class MainMap extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
