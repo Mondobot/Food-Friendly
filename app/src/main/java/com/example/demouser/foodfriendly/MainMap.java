@@ -16,7 +16,7 @@ public class MainMap extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main_map);
+        setContentView(R.layout.filter);
 
         Log.d("UTIL",
                 "isGooglePlayServicesAvailable: "
@@ -24,12 +24,12 @@ public class MainMap extends Activity {
                         .isGooglePlayServicesAvailable(getApplicationContext())
         );
 
-        GoogleMap map = ((MapFragment) getFragmentManager().findFragmentById(
+   /*     GoogleMap map = ((MapFragment) getFragmentManager().findFragmentById(
                 R.id.map)).getMap();
 
         Log.d("UTIL", "It does work.");
         map.setMyLocationEnabled(true);
-
+    */
     }
 
 

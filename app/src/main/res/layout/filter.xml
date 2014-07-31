@@ -7,23 +7,31 @@
     android:weightSum="1"
     android:padding="10dp">
 
-    <LinearLayout
-        android:paddingTop="20dp"
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.5"
+        android:layout_weight="0.2"
+        android:text="Select Filters"
+        android:gravity="center"
+        android:textSize="30dp"/>
+
+    <LinearLayout
+        android:paddingTop="50dp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.4"
         android:orientation="horizontal"
         android:weightSum="1">
 
-
         <ImageView
-
+            android:clickable="true"
             android:layout_height="match_parent"
             android:layout_width="0dp"
             android:layout_weight="0.5"
             android:src="@drawable/dairy_free"/>
 
         <ImageView
+            android:clickable="true"
             android:layout_height="match_parent"
             android:layout_width="0dp"
             android:layout_weight="0.5"
@@ -32,21 +40,23 @@
     </LinearLayout>
 
     <LinearLayout
-        android:paddingBottom="30dp"
+        android:paddingBottom="50dp"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.5"
+        android:layout_weight="0.4"
         android:orientation="horizontal"
         android:weightSum="1">
 
         <ImageView
+            android:clickable="true"
             android:paddingEnd="10dp"
             android:layout_height="match_parent"
             android:layout_width="0dp"
             android:layout_weight="0.5"
-            android:src="@drawable/vegan"/>
+            android:src="@drawable/vegan_high"/>
 
         <ImageView
+            android:clickable="true"
             android:paddingStart="10dp"
             android:layout_height="match_parent"
             android:layout_width="0dp"
