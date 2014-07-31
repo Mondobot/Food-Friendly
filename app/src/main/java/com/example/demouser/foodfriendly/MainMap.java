@@ -29,6 +29,7 @@ public class MainMap extends Activity {
 
         Log.d("UTIL", "It does work.");
         map.setMyLocationEnabled(true);
+
     }
 
 

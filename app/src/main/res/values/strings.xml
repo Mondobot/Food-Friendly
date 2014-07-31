@@ -5,4 +5,20 @@
     <string name="hello_world">Hello world!!!!</string>
     <string name="action_settings">Settings</string>
 
+
+    <!-- Positive filters -->
+    <string name="filter_vegan">Vegan</string>
+    <string name="filter_vegetarian">Vegetarian</string>
+    <string name="filter_kosher">Kosher</string>
+    <string name="filter_halal">Halal</string>
+    <string name="filter_fasting">Fasting</string>
+    <string name="filter_fitness">Fitness</string>
+
+    <!-- Negative filters -->
+    <string name="filter_lactose">No Lactose</string>
+    <string name="filter_gluten">No Gluten</string>
+
+
+
+
 </resources>
