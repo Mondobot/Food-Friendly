@@ -2,8 +2,13 @@ package com.example.demouser.foodfriendly;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.google.android.gms.common.GooglePlayServicesUtil;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
 
 
 public class MainMap extends Activity {
@@ -12,6 +17,18 @@ public class MainMap extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_map);
+
+        Log.d("UTIL",
+                "isGooglePlayServicesAvailable: "
+                        + GooglePlayServicesUtil
+                        .isGooglePlayServicesAvailable(getApplicationContext())
+        );
+
+        GoogleMap map = ((MapFragment) getFragmentManager().findFragmentById(
+                R.id.map)).getMap();
+
+        Log.d("UTIL", "It does work.");
+        map.setMyLocationEnabled(true);
     }
 
 
