@@ -2,19 +2,30 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".mainMap" >
 
-    <item android:id="@+id/top_filter_button"
+    <item android:id="@+id/action_filter"
         android:title="Filter"
         android:orderInCategory="60"
         android:showAsAction="ifRoom"/>
 
-    <item android:id="@+id/top_search_button"
+    <item android:id="@+id/action_search"
         android:title="Search"
         android:orderInCategory="70"
+        android:showAsAction="ifRoom"/>
+
+    <item android:id="@+id/action_dummy1"
+        android:title="dummy1"
+        android:orderInCategory="80"
+        android:showAsAction="ifRoom"/>
+
+    <item android:id="@+id/action_dummy2"
+        android:title="dummy2"
+        android:orderInCategory="90"
         android:showAsAction="ifRoom"/>
 
     <item android:id="@+id/action_settings"
         android:title="@string/action_settings"
         android:orderInCategory="100"
         android:showAsAction="never" />
+
 
 </menu>
