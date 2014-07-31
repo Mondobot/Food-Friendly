@@ -12,3 +12,5 @@ Adding autocomplite https://developers.google.com/places/training/autocomplete-a
 Android speech https://developers.google.com/maps/documentation/android/marker?hl=ru
 
 About location http://www.taywils.me/2013/05/06/androidgoogleplacestutorial.html
+Location http://developer.android.com/guide/topics/location/strategies.html
+One more about lovation http://stackoverflow.com/questions/16005223/android-google-map-api-v2-current-location
