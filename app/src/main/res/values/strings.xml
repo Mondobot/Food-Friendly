@@ -13,4 +13,11 @@
     <string name="title_review">Review</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
+    <string name="restaurant_place_id">place_id</string>
+    <string name="restaurant_name">place_name</string>
+    <string name="restaurant_address">formatted_address</string>
+    <string name="restaurant_url">website</string>
+    <string name="restaurant_ranking">rating</string>
+    <!-- <string name="distance"></string> -->
+
 </resources>
