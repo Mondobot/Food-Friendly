@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.demouser.foodfriendly.FragmentCallback;
+import com.example.demouser.foodfriendly.Restaurant;
+import com.example.demouser.foodfriendly.RestaurantManager;
 import com.example.demouser.foodfriendly.Utility;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMapOptions;
@@ -30,7 +32,14 @@ public class GoogleMapFragment extends SupportMapFragment
         Log.d(LOG_TAG, "onInfoWindowClick..");
         MapController.getInstance().searchPlaceDetails(marker);
         if (mCallback != null) {
-            mCallback.OnItemClicked(Utility.MAP_FRAG, MapController.getInstance().getPlaceIDByMarker(marker));
+            String placeID = MapController.getInstance().getPlaceIDByMarker(marker);
+            Log.d(LOG_TAG, "placeID " + placeID);
+            Restaurant r = RestaurantManager.getInstance().getRestaurantByPlaceID(placeID);
+            Log.d(LOG_TAG, "exist? " + (r!=null));
+            if (r != null) {
+                String placeName = r.getName();
+                mCallback.OnItemClicked(Utility.MAP_FRAG, placeName);
+            }
         }
     }
 

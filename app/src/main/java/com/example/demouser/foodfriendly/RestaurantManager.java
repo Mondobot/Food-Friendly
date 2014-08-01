@@ -1,6 +1,7 @@
 package com.example.demouser.foodfriendly;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.example.demouser.foodfriendly.FilterPref;
 import com.example.demouser.foodfriendly.R;
@@ -8,6 +9,8 @@ import com.example.demouser.foodfriendly.Restaurant;
 import com.example.demouser.foodfriendly.Review;
 import com.example.demouser.foodfriendly.Utility;
 import com.example.demouser.foodfriendly.Utility.FilterStatus;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.model.Marker;
 
 
 import java.util.ArrayList;
@@ -16,6 +19,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Random;
 
 
 /**
@@ -24,16 +28,24 @@ import java.util.List;
 public class RestaurantManager {
 
 
-    HashMap<String,Restaurant> mAllRestaurants;
-    HashSet<String> mLactoseFreeRestaurants;
-    HashSet<String> mGlutenFreeRestaurants;
-    HashSet<String> mVeganRestaurants;
-    HashSet<String> mVegetarianRestaurants;
+    private static RestaurantManager singleton = new RestaurantManager();
+    private RestaurantManager () {    }
+    public static RestaurantManager getInstance( ) {
+        return singleton;
+    }
 
-    Context mContext;
+    private static HashMap<String,Restaurant> mAllRestaurants;
+    private static HashSet<String> mLactoseFreeRestaurants;
+    private static HashSet<String> mGlutenFreeRestaurants;
+    private static HashSet<String> mVeganRestaurants;
+    private static HashSet<String> mVegetarianRestaurants;
 
-    public RestaurantManager(Context contex) {
-        mContext = contex;
+    private static Context mApplicationContext;
+    private static Random mRandomGenerator;
+
+    public static void initialize(Context applicationContext) {
+        mApplicationContext = applicationContext;
+        mRandomGenerator = new Random();
         mAllRestaurants = new HashMap<String, Restaurant>();
         mLactoseFreeRestaurants = new HashSet<String>();
         mGlutenFreeRestaurants = new HashSet<String>();
@@ -43,12 +55,32 @@ public class RestaurantManager {
 
     public void updateRestaurants(List<HashMap<String,String>> restaurants){
         for(HashMap<String,String> restaurantMap : restaurants){
-            String id = restaurantMap.get(R.string.restaurant_place_id);
+            Log.d("RESTA", "Updating, rest: " + restaurantMap);
+//            String id = restaurantMap.get(R.string.restaurant_place_id);
+            String id = restaurantMap.get("place_id");
+            Log.d("RESTA", "Updating, rest id: " + id);
             if(!mAllRestaurants.containsKey(id)){
                 Restaurant newRestaurant = new Restaurant(restaurantMap);
+
+                Log.d("RESTA", "It is new!!");
+
                 mAllRestaurants.put(id, newRestaurant);
+
+                if (mRandomGenerator.nextInt(100) % 2 == 0) {
+                    mLactoseFreeRestaurants.add(id);
+                }
+                if (mRandomGenerator.nextInt(100) % 2 == 0) {
+                    mGlutenFreeRestaurants.add(id);
+                }
+                if (mRandomGenerator.nextInt(100) % 2 == 0) {
+                    mVeganRestaurants.add(id);
+                }
+                if (mRandomGenerator.nextInt(100) % 2 == 0) {
+                    mVegetarianRestaurants.add(id);
+                }
             }
         }
+        Log.d("RESTA", "Updated: " + mAllRestaurants.toString());
     }
 
     public void addReviewToRestaurant(Restaurant restaurant, Review review){
@@ -85,22 +117,22 @@ public class RestaurantManager {
         ArrayList<Restaurant> resultSet = new ArrayList<Restaurant>();
         //TODO this logic!!!
         FilterPref filterPref = new FilterPref();
-        if(filterPref.getState(Utility.LACTOSE_STATE,mContext)){
+        if(filterPref.getState(Utility.LACTOSE_STATE,mApplicationContext)){
             for(String restaurantId : mLactoseFreeRestaurants){
                 resultSet.add(mAllRestaurants.get(restaurantId));
             }
         }
-        if(filterPref.getState(Utility.GLUTEN_STATE,mContext)){
+        if(filterPref.getState(Utility.GLUTEN_STATE,mApplicationContext)){
             for(String restaurantId : mGlutenFreeRestaurants){
                 resultSet.add(mAllRestaurants.get(restaurantId));
             }
         }
-        if(filterPref.getState(Utility.VEGAN_STATE,mContext)){
+        if(filterPref.getState(Utility.VEGAN_STATE,mApplicationContext)){
             for(String restaurantId : mVeganRestaurants){
                 resultSet.add(mAllRestaurants.get(restaurantId));
             }
         }
-        if(filterPref.getState(Utility.VEGETARIAN_STATE,mContext)){
+        if(filterPref.getState(Utility.VEGETARIAN_STATE,mApplicationContext)){
             for(String restaurantId : mVegetarianRestaurants){
                 resultSet.add(mAllRestaurants.get(restaurantId));
             }
@@ -124,6 +156,13 @@ public class RestaurantManager {
         public int compare(Restaurant o1, Restaurant o2) {
             return new Float(o1.getDistance()).compareTo(o2.getDistance()); //TODO?// ???is this ok????
         }
+    }
+
+
+    public Restaurant getRestaurantByPlaceID (String placeID) {
+        Restaurant restaurant;
+        restaurant = mAllRestaurants.get(placeID);
+        return restaurant;
     }
 
 }

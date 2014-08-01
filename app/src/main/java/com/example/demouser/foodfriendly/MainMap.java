@@ -97,10 +97,7 @@ public class MainMap extends ActionBarActivity implements
                     .setTabListener(this));
         }
 
-
-
-//        GoogleMap map = ((SupportMapFragment) mSectionsPagerAdapter.getItem(TAB_MAP)).getMap();
-////        mMapController = new MapController(map, this.getApplicationContext());
+        RestaurantManager.initialize(this);
 
     }
 

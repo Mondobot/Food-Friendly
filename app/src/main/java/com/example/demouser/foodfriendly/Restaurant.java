@@ -17,12 +17,17 @@ public class Restaurant {
     }
 
     public Restaurant(HashMap<String,String> map){
-        this.mPlaceId = map.get(R.string.restaurant_place_id);
-        this.mName = map.get(R.string.restaurant_name);
-        this.mAddress = map.get(R.string.restaurant_address);
-        this.mUrl = map.get(R.string.restaurant_url);
-        String ranking = map.get(R.string.restaurant_ranking);
-        this.isRanked = ranking == "NA-" ? false : true;
+//        this.mPlaceId = map.get(R.string.restaurant_place_id);
+//        this.mName = map.get(R.string.restaurant_name);
+//        this.mAddress = map.get(R.string.restaurant_address);
+//        this.mUrl = map.get(R.string.restaurant_url);
+//        String ranking = map.get(R.string.restaurant_ranking);
+        this.mPlaceId = map.get("place_id");
+        this.mName = map.get("place_name");
+        this.mAddress = map.get("formatted_address");
+        this.mUrl = map.get("url");
+        String ranking = map.get("rating");
+        this.isRanked = (ranking == null || ranking == "NA-") ? false : true;
         if(isRanked) {
             this.mRanking = Float.parseFloat(ranking);
         }

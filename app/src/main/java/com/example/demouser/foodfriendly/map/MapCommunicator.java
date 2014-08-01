@@ -4,6 +4,7 @@ import android.location.Location;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.example.demouser.foodfriendly.RestaurantManager;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -158,6 +159,8 @@ public class MapCommunicator {
                     mMap.moveCamera(cameraUpdate);
 
                     Log.d(LOG_TAG, "Places: "+ places.toString());
+
+                    RestaurantManager.getInstance().updateRestaurants(places);
 
                 } catch (JSONException e) {
                     e.printStackTrace();
