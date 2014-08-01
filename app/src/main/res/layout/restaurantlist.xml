@@ -9,5 +9,4 @@
         android:id="@+id/restaurant_list">
 
     </ListView>
-
 </LinearLayout>

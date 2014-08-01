@@ -2,12 +2,15 @@ package com.example.demouser.foodfriendly.map;
 
 
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.demouser.foodfriendly.FilterFragment;
+import com.example.demouser.foodfriendly.FragmentCallback;
 import com.example.demouser.foodfriendly.R;
 
 /**
@@ -17,9 +20,11 @@ import com.example.demouser.foodfriendly.R;
 public class DetailsFragment extends Fragment {
 
 
+
     public DetailsFragment() {
         // Required empty public constructor
     }
+
 
 
     @Override
