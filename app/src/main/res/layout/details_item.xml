@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="15dp">
+
+  <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:id="@+id/restaurant_name"
+      android:textSize="30dp"
+      android:text="Default Name"
+      android:textStyle="bold"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/distance"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:text="0.3km"/>
+
+   <TextView
+       android:layout_width="fill_parent"
+       android:layout_height="wrap_content"
+       android:id="@+id/restaurant_address"
+       android:text="123 something st, London UK"
+       android:layout_below="@id/restaurant_name"
+       android:textSize="15dp"/>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+
+        android:id="@+id/restaurant_filters"
+        android:layout_below="@id/restaurant_address"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/no_dairy_alpha"
+            android:id="@+id/details_dairy_icon"/>
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/gluten_free_2"
+            android:alpha="0.25"
+            android:id="@+id/details_gluten_icon"/>
+        <ImageView
+            android:layout_marginTop="2dp"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:src="@drawable/vegan_alpha"
+            android:alpha="0.25"
+            android:id="@+id/details_vegan_icon"/>
+        <ImageView
+            android:layout_marginTop="2dp"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:src="@drawable/vegitarian_alpha"
+            android:id="@+id/details_vegetarian_icon"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="230dp"
+        android:layout_height="50dp"
+        android:layout_below="@id/restaurant_filters"
+        android:id="@+id/restaurant_rating"
+        android:weightSum="1"
+        android:layout_marginBottom="20dp">
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.2"
+            android:src="@drawable/ic_action_important"
+            android:id="@+id/rating_star1"
+            />
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_weight="0.2"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_action_important"
+            android:id="@+id/rating_star2"
+            />
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_weight="0.2"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_action_important"
+            android:id="@+id/rating_star3"
+            />
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_weight="0.2"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_action_half_important"
+            android:id="@+id/rating_star4"
+            />
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_weight="0.2"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_action_not_important"
+            android:id="@+id/rating_star5"
+            />
+        </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Website:"
+        android:layout_below="@id/restaurant_rating"
+        android:id="@+id/website"
+        android:layout_marginRight="10dp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/restaurant_rating"
+        android:text="www.defaultRestaurant.com"
+        android:textStyle="italic"
+        android:layout_alignParentRight="true"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Rate and Review"
+        android:layout_below="@+id/website"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:id="@+id/rate_and_review_text"
+        android:textSize="20dp"/>
+
+    <LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_below="@id/rate_and_review_text"
+    android:id="@+id/rate_and_review_stars_layout"
+    android:gravity="center"
+    android:layout_centerHorizontal="true"
+    android:padding="10dp"
+    android:layout_marginBottom="10dp"
+    android:weightSum="1">
+
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.2"
+        android:src="@drawable/ic_action_not_important"
+        android:id="@+id/rate_and_review_star1"
+        />
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.2"
+        android:src="@drawable/ic_action_not_important"
+        android:id="@+id/rate_and_review_star2"
+        />
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.2"
+        android:src="@drawable/ic_action_not_important"
+        android:id="@+id/rate_and_review_star3"
+        />
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.2"
+        android:src="@drawable/ic_action_not_important"
+        android:id="@+id/rate_and_review_star4"
+        />
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.2"
+        android:src="@drawable/ic_action_not_important"
+        android:id="@+id/rate_and_review_star5"
+        />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Reviews"
+        android:layout_below="@+id/rate_and_review_stars_layout"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:id="@+id/reviews_text"
+        android:textSize="20dp"/>
+
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/reviews_text"
+        android:id="@+id/reviews_list_view"/>
+
+
+</RelativeLayout>

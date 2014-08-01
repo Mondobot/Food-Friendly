@@ -18,7 +18,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
+import com.example.demouser.foodfriendly.map.DetailsFragment;
 import com.example.demouser.foodfriendly.map.GoogleMapFragment;
 import com.example.demouser.foodfriendly.map.MapController;
 import com.google.android.gms.maps.GoogleMap;
@@ -29,7 +31,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 public class MainMap extends ActionBarActivity implements
         ActionBar.TabListener, FilterFragment.OnFragmentInteractionListener,
-        GoogleMapFragment.OnGoogleMapFragmentListener {
+        GoogleMapFragment.OnGoogleMapFragmentListener, FragmentCallback {
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -94,6 +96,8 @@ public class MainMap extends ActionBarActivity implements
                     .setTabListener(this));
         }
 
+
+
 //        GoogleMap map = ((SupportMapFragment) mSectionsPagerAdapter.getItem(TAB_MAP)).getMap();
 ////        mMapController = new MapController(map, this.getApplicationContext());
 
@@ -157,6 +161,26 @@ public class MainMap extends ActionBarActivity implements
 
     @Override
     public void onMapReady(GoogleMap map) {
+      
+    }
+
+    @Override
+    public void OnItemClicked(String fragType, Object data) {
+        Log.d("OnItemClicker", "enters");
+        if (fragType.equals(Utility.REST_FRAG)) {
+            Log.d("OnItemClicker", "woooo");
+            String myString = (String)data;
+            ActionBar actionBar = getSupportActionBar();
+
+            // Do click logic
+            // We need to move this in the fragment file
+            DetailsFragment selectedRest = (DetailsFragment)mSectionsPagerAdapter.getItem(TAB_RESTAURANT);
+            TextView restName = (TextView)selectedRest.getActivity().findViewById(R.id.restaurant_name);
+            restName.setText(myString);
+
+            actionBar.selectTab(actionBar.getTabAt(TAB_RESTAURANT));
+        }
+
     }
 
     /**
@@ -167,17 +191,17 @@ public class MainMap extends ActionBarActivity implements
 
         FilterFragment mFilterFragment;
         GoogleMapFragment mGoogleMapFragment;
-        PlaceholderFragment mPlaceholderFragment3;
-        PlaceholderFragment mPlaceholderFragment4;
+        RestaurantList mRestaurantList;
+        DetailsFragment mDetailsFragment;
         PlaceholderFragment mPlaceholderFragment5;
 
         public SectionsPagerAdapter(FragmentManager fm) {
             super(fm);
             mFilterFragment = new FilterFragment();
             mGoogleMapFragment = new GoogleMapFragment();
-            mPlaceholderFragment3 =new PlaceholderFragment();
-            mPlaceholderFragment4 =new PlaceholderFragment();
-            mPlaceholderFragment5 =new PlaceholderFragment();
+            mRestaurantList = new RestaurantList();
+            mDetailsFragment = new DetailsFragment();
+            mPlaceholderFragment5 = new PlaceholderFragment();
         }
 
         @Override
@@ -191,9 +215,9 @@ public class MainMap extends ActionBarActivity implements
                 case TAB_MAP:
                     return mGoogleMapFragment;
                 case TAB_NEARBY:
-                    return mPlaceholderFragment3;
+                    return mRestaurantList;
                 case TAB_RESTAURANT:
-                    return mPlaceholderFragment4;
+                    return mDetailsFragment;
                 case TAB_REVIEW:
                     return mPlaceholderFragment5;
                 default:

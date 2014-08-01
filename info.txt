@@ -1,18 +1,22 @@
 Map Tutorial here: https://docs.google.com/document/pub?id=19nQzvKP-CVLd7_VrpwnHfl-AE9fjbJySowONZZtNHzw
 
 Design: http://developer.android.com/training/design-navigation/descendant-lateral.html
-
 Google Places API https://developers.google.com/places/training/
 Basic Place search example https://developers.google.com/places/training/basic-place-search
 Place search https://developers.google.com/places/documentation/search?hl=it-IT
 Place Details https://developers.google.com/places/documentation/details#PlaceDetailsResults
 Markers https://developers.google.com/maps/documentation/android/marker?hl=ru
-
 Adding autocomplite https://developers.google.com/places/training/autocomplete-android
 Android speech https://developers.google.com/maps/documentation/android/marker?hl=ru
-
 About location http://www.taywils.me/2013/05/06/androidgoogleplacestutorial.html
 Location http://developer.android.com/guide/topics/location/strategies.html
 One more about lovation http://stackoverflow.com/questions/16005223/android-google-map-api-v2-current-location
-
 JSON parser http://wptrafficanalyzer.in/blog/showing-nearby-places-and-place-details-using-google-places-api-and-google-maps-android-api-v2/
+Center and zoom http://stackoverflow.com/questions/19304574/center-set-zoom-of-map-to-cover-all-markers-visible-markers
+Get distance http://stackoverflow.com/questions/14394366/find-distance-between-two-points-on-map-using-google-map-api-v2
+Autocomplete text http://wptrafficanalyzer.in/blog/adding-google-places-autocomplete-api-as-custom-suggestions-in-android-search-dialog/
+
+
+Places: [{place_id=ChIJzfquTR8FdkgR55vHEwcuys4, lng=-0.146292, vicinity=3A The Colonnades 123/151 Buckingham Palace Road, Victoria, London SW1W 9SH, lat=51.493676, place_name=Revital Health Place}, {place_id=ChIJxW_IVx8FdkgRg5t0z7lz7Ko, lng=-0.145946, vicinity=115 Buckingham Palace Rd, London, lat=51.494107, place_name=Sainsbury's Supermarkets Ltd}, {place_id=ChIJxW_IVx8FdkgREV-Tu2DNpbM, lng=-0.146169, vicinity=Victoria Place, 115 Buckingham Palace Rd, Westminister, London, lat=51.494052, place_name=McDonald's Restaurants Ltd}, {place_id=ChIJcVUr8iEFdkgRH6DmdVa_QJ8, lng=-0.145872, vicinity=Unit CY7, Victoria Place Shopping Centre, London, Buckingham Palace Rd, lat=51.494147, place_name=Prezzo Restaurant}, {place_id=ChIJzfquTR8FdkgROqUMNHykrGk, lng=-0.146478, vicinity=123-151 Buckingham Palace Rd, London, lat=51.493089, place_name=Bradford Food & Wine}, {place_id=ChIJhdx4aR8FdkgRy3_8DS5GwoE, lng=-0.144624, vicinity=14 Belgrave Rd, London, lat=51.493242, place_name=The St George's Tavern}, {place_id=ChIJzfquTR8FdkgR8b08m1tqS9o, lng=-0.145717, vicinity=115 Buckingham Palace Rd, London, lat=51.494272, place_name=Subway}, {place_id=ChIJxW_IVx8FdkgR8brzDcebhOE, lng=-0.146084, vicinity=Victoria Place Shopping Centre, 115 Buckingham Palace Rd, London, lat=51.494241, place_name=Café Rouge}, {place_id=ChIJg4HphyAFdkgR8mnnGRMklrA, lng=-0.146473, vicinity=15, Victoria Place Shopping Centre, 115 Buckingham Palace Rd, London, Westminster, lat=51.494159, place_name=Holland & Barrett}, {place_id=ChIJzfquTR8FdkgRn6vFviTuCtc, lng=-0.146971, vicinity=Buckingham Palace Rd, Collanade Walk, Victoria, lat=51.493177, place_name=Subway Victoria}, {place_id=ChIJn_Ny1yEFdkgRsBnbGhfQoTY, lng=-0.144523, vicinity=2A Bridge Pl, Victoria, London, lat=51.494138, place_name=2 Bridge Place}, {place_id=ChIJIYPltyEFdkgR7jg06Jo1FAU, lng=-0.145874, vicinity=Platform 18, Victoria Station, London, lat=51.494472, place_name=Nero Express}, {place_id=ChIJf0DgTR8FdkgRVy9g_6CLDsM, lng=-0.147241, vicinity=8 Fountain Square8 Fountain Square, London, lat=51.49331, place_name=Sobranie Restaurant}, {place_id=ChIJxW_IVx8FdkgRH7GjC6kTJs0, lng=-0.146082, vicinity=Victoria Place Shopping Centre, 115 Buckingham Palace Rd, London, lat=51.49452, place_name=KFC}, {place_id=ChIJt34_AiIFdkgRpPSKDamiT1k, lng=-0.14687, vicinity=92 Buckingham Palace Rd, London, lat=51.494311, place_name=Pret A Manger}, {place_id=ChIJxW_IVx8FdkgRwVL1dvLNPac, lng=-0.147488, vicinity=115 Buckingham Palace Rd, Victoria, London, lat=51.493728, place_name=Bagel Factory}, {place_id=ChIJJTMrphgFdkgRXf3RqXHG1So, lng=-0.147488, vicinity=115 Buckingham Palace Rd, Victoria, London, lat=51.493728, place_name=Banger Bros}, {place_id=ChIJWfOCTaIEdkgRaujZHC4_jkY, lng=-0.145894, vicinity=Unit 42b, Victoria Station, London, lat=51.494704, place_name=Boots}, {place_id=ChIJaSaU5SEFdkgRKOYb3O93BYI, lng=-0.145708, vicinity=London, lat=51.494922, place_name=International Cheese Centre}, {place_id=ChIJgxYXAiIFdkgRiPEMKTtPKeI, lng=-0.147252, vicinity=Chantrey House, Eccleston St, London, lat=51.494561, place_name=Starbucks Coffee London - Buckingham Palace road}]
+
+Place: {formatted_phone=020 7932 5367, icon=http://maps.gstatic.com/mapfiles/place_api/icons/cafe-71.png, vicinity=92 Buckingham Palace Rd, London, website=http://pret.com/find_a_pret/shops/shop_92_Buckingham_Palace_Road_SW1W_0SS_UK0167.shtm, name=Pret A Manger, formatted_address=92 Buckingham Palace Rd, London, United Kingdom, international_phone_number=+44 20 7932 5367, lng=-0.14687, rating=-NA-, url=https://plus.google.com/113937748650723332630/about?hl=en-US, lat=51.494311}
