@@ -1,5 +1,8 @@
 package com.example.demouser.foodfriendly;
 
+import android.animation.ObjectAnimator;
+import android.animation.PropertyValuesHolder;
+import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
@@ -8,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnticipateOvershootInterpolator;
 import android.widget.Button;
 import android.widget.ImageView;
 
@@ -125,11 +129,25 @@ public class FilterFragment extends Fragment {
                     break;
             }
 
+            PropertyValuesHolder pvhSX = PropertyValuesHolder.ofFloat(View.SCALE_X, 1.2f);
+            PropertyValuesHolder pvhSY = PropertyValuesHolder.ofFloat(View.SCALE_Y, 1.2f);
+
+
             if (newState) {
                 v.setAlpha(Utility.SELECT_ON);
             } else {
                 v.setAlpha(Utility.SELECT_OFF);
+                pvhSX = PropertyValuesHolder.ofFloat(View.SCALE_X, 0.8f);
+                pvhSY = PropertyValuesHolder.ofFloat(View.SCALE_Y, 0.8f);
             }
+
+            ObjectAnimator animator = ObjectAnimator.ofPropertyValuesHolder(v,pvhSX,pvhSY);
+            animator.setRepeatCount(1);
+            animator.setRepeatMode(ValueAnimator.REVERSE);
+            animator.setDuration(100);
+            v.setClickable(false);
+            animator.start();
+            v.setClickable(true);
         }
     };
 
