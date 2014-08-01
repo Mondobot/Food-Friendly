@@ -14,3 +14,5 @@ Android speech https://developers.google.com/maps/documentation/android/marker?h
 About location http://www.taywils.me/2013/05/06/androidgoogleplacestutorial.html
 Location http://developer.android.com/guide/topics/location/strategies.html
 One more about lovation http://stackoverflow.com/questions/16005223/android-google-map-api-v2-current-location
+
+JSON parser http://wptrafficanalyzer.in/blog/showing-nearby-places-and-place-details-using-google-places-api-and-google-maps-android-api-v2/
