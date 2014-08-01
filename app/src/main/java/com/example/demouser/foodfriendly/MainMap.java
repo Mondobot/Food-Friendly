@@ -31,7 +31,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 public class MainMap extends ActionBarActivity implements
         ActionBar.TabListener, FilterFragment.OnFragmentInteractionListener,
-        GoogleMapFragment.OnGoogleMapFragmentListener, FragmentCallback {
+        FragmentCallback {
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -72,6 +72,7 @@ public class MainMap extends ActionBarActivity implements
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.pager);
         mViewPager.setAdapter(mSectionsPagerAdapter);
+        mViewPager.setOffscreenPageLimit(10);
         mMapFragment = (GoogleMapFragment) mSectionsPagerAdapter.getItem(TAB_MAP);
 
         // When swiping between different sections, select the corresponding
@@ -160,22 +161,17 @@ public class MainMap extends ActionBarActivity implements
     }
 
     @Override
-    public void onMapReady(GoogleMap map) {
-      
-    }
-
-    @Override
     public void OnItemClicked(String fragType, Object data) {
-        Log.d("OnItemClicker", "enters");
-        if (fragType.equals(Utility.REST_FRAG)) {
-            Log.d("OnItemClicker", "woooo");
+        Log.d("OnItemClicker", "OnItemClicked entering");
+        if (fragType.equals(Utility.REST_FRAG) || fragType.equals(Utility.MAP_FRAG)) {
+            Log.d("OnItemClicker", "OnItemClicked wohoo");
             String myString = (String)data;
             ActionBar actionBar = getSupportActionBar();
 
             // Do click logic
             // We need to move this in the fragment file
             DetailsFragment selectedRest = (DetailsFragment)mSectionsPagerAdapter.getItem(TAB_RESTAURANT);
-            TextView restName = (TextView)selectedRest.getActivity().findViewById(R.id.restaurant_name);
+            TextView restName = (TextView)selectedRest.getView().findViewById(R.id.restaurant_name);
             restName.setText(myString);
 
             actionBar.selectTab(actionBar.getTabAt(TAB_RESTAURANT));

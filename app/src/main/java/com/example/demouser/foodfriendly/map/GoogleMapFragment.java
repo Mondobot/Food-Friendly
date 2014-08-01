@@ -7,6 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.demouser.foodfriendly.FragmentCallback;
+import com.example.demouser.foodfriendly.Utility;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMapOptions;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -27,6 +29,9 @@ public class GoogleMapFragment extends SupportMapFragment
     public void onInfoWindowClick(Marker marker) {
         Log.d(LOG_TAG, "onInfoWindowClick..");
         MapController.getInstance().searchPlaceDetails(marker);
+        if (mCallback != null) {
+            mCallback.OnItemClicked(Utility.MAP_FRAG, MapController.getInstance().getPlaceIDByMarker(marker));
+        }
     }
 
     @Override
@@ -38,6 +43,7 @@ public class GoogleMapFragment extends SupportMapFragment
 
     public static interface OnGoogleMapFragmentListener {
         void onMapReady(GoogleMap map);
+        void onPlaceSelected(String placeID);
     }
 
     public static GoogleMapFragment newInstance() {
@@ -57,7 +63,7 @@ public class GoogleMapFragment extends SupportMapFragment
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         try {
-            mCallback = (OnGoogleMapFragmentListener) getActivity();
+            mCallback = (FragmentCallback) getActivity();
         } catch (ClassCastException e) {
             throw new ClassCastException(getActivity().getClass().getName() + " must implement OnGoogleMapFragmentListener");
         }
@@ -72,9 +78,6 @@ public class GoogleMapFragment extends SupportMapFragment
 
         MapController.initialize(mMap, getActivity().getApplicationContext());
 
-        if (mCallback != null) {
-            mCallback.onMapReady(mMap);
-        }
         return view;
     }
 
@@ -90,5 +93,6 @@ public class GoogleMapFragment extends SupportMapFragment
         MapController.getInstance().searchPlaceDetails(placeID);
     }
 
-    private OnGoogleMapFragmentListener mCallback;
+    private FragmentCallback mCallback;
+
 }

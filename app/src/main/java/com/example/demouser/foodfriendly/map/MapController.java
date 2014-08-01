@@ -106,8 +106,11 @@ public class MapController {
 
     }
 
-    public static void registerMarker (Marker marker, String placeID) {
+    public void registerMarker (Marker marker, String placeID) {
         mMarkerMap.put(marker, placeID);
     }
 
+    public String getPlaceIDByMarker (Marker marker) {
+        return mMarkerMap.get(marker);
+    }
 }
