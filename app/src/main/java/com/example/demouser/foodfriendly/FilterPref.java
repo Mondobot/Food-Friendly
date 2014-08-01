@@ -1,30 +1,35 @@
 package com.example.demouser.foodfriendly;
 
-
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.util.Log;
+
 /**
- * Created by Maya Arbel on 31/07/2014.
+ * Created by Awesome Enginner on 31/07/2014.
  */
 public class FilterPref {
-
-    private final String  LACTOSE_STATE = "lactose_state";
-
     private SharedPreferences mSp = null;
 
-    protected boolean isLactoseFree(Context context){
+    protected boolean getState(String type, Context context){
         mSp = PreferenceManager.getDefaultSharedPreferences(context);
-        return mSp.getBoolean(LACTOSE_STATE, false);
+        //Log.d("getState", String.valueOf(mSp.getBoolean(type, false)));
+        return mSp.getBoolean(type, false);
     }
 
-    protected boolean toggleLactoseFree(Context context){
+    //protected void setState(String type)
+
+    protected boolean toggleFilterState(String type, Context context){
         mSp = PreferenceManager.getDefaultSharedPreferences(context);
-        boolean newValue =!isLactoseFree(context);
-        mSp.edit().putBoolean(LACTOSE_STATE, newValue);
+        boolean newValue = !mSp.getBoolean(type, false);
+
+        //Log.d("toggle", String.valueOf(newValue));
+        mSp.edit().putBoolean(type, newValue).apply();
+
+        //Log.d("string", type);
+        //Log.d("afterToggle", String.valueOf(mSp.getBoolean(type, false)));
+        //Log.d("afterToggle2", String.valueOf(mSp.getBoolean(type, false)));
 
         return newValue;
     }
-
-
 }

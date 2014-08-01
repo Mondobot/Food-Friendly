@@ -3,6 +3,7 @@ package com.example.demouser.foodfriendly;
 
 import java.util.Locale;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -26,7 +27,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 public class MainMap extends ActionBarActivity implements
-        ActionBar.TabListener {
+        ActionBar.TabListener, FilterFragment.OnFragmentInteractionListener {
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -146,6 +147,11 @@ public class MainMap extends ActionBarActivity implements
                                 FragmentTransaction fragmentTransaction) {
     }
 
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
+    }
+
     /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
      * one of the sections/tabs/pages.
@@ -162,9 +168,9 @@ public class MainMap extends ActionBarActivity implements
             // Return a PlaceholderFragment (defined as a static inner class
             // below).
             switch (position) {
-                case TAB_FILTERS:
-                    return PlaceholderFragment.newInstance(position + 1);
-                case TAB_MAP:
+                case 0:
+                    return new FilterFragment();
+                case 1:
                     return SupportMapFragment.newInstance();
                 case TAB_NEARBY:
                     return PlaceholderFragment.newInstance(position + 1);

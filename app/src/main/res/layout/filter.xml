@@ -28,14 +28,16 @@
             android:layout_height="match_parent"
             android:layout_width="0dp"
             android:layout_weight="0.5"
-            android:src="@drawable/dairy_free"/>
+            android:src="@drawable/no_dairy_alpha"
+            android:id="@+id/btn_dairy_free"/>
 
         <ImageView
             android:clickable="true"
             android:layout_height="match_parent"
             android:layout_width="0dp"
             android:layout_weight="0.5"
-            android:src="@drawable/gluten_free_2"/>
+            android:src="@drawable/gluten_free_2"
+            android:id="@+id/btn_gluten_free"/>
 
     </LinearLayout>
 
@@ -53,7 +55,8 @@
             android:layout_height="match_parent"
             android:layout_width="0dp"
             android:layout_weight="0.5"
-            android:src="@drawable/vegan_high"/>
+            android:src="@drawable/vegan_alpha"
+            android:id="@+id/btn_vegan"/>
 
         <ImageView
             android:clickable="true"
@@ -61,7 +64,8 @@
             android:layout_height="match_parent"
             android:layout_width="0dp"
             android:layout_weight="0.5"
-            android:src="@drawable/vegitarian"/>
+            android:src="@drawable/vegitarian_alpha"
+            android:id="@+id/btn_vegetarian"/>
 
     </LinearLayout>
 

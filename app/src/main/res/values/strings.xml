@@ -12,17 +12,4 @@
     <string name="title_restaurant">Restaurant</string>
     <string name="title_review">Review</string>
 
-    <!-- Positive filters -->
-    <string name="filter_vegan">Vegan</string>
-    <string name="filter_vegetarian">Vegetarian</string>
-    <string name="filter_kosher">Kosher</string>
-    <string name="filter_halal">Halal</string>
-    <string name="filter_fasting">Fasting</string>
-    <string name="filter_fitness">Fitness</string>
-
-    <!-- Negative filters -->
-    <string name="filter_lactose">No Lactose</string>
-    <string name="filter_gluten">No Gluten</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-
 </resources>
