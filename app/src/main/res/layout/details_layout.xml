@@ -72,37 +72,42 @@
         android:id="@+id/restaurant_rating"
         android:gravity="center"
         android:layout_centerHorizontal="true"
-        android:padding="10dp"
-        android:layout_marginBottom="10dp">
+        android:padding="20dp"
+        android:weightSum="1">
 
         <ImageView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:src="@drawable/abc_ic_cab_done_holo_dark"
+            android:layout_weight="0.2"
+            android:src="@drawable/ic_action_important"
             android:id="@+id/rating_star1"
             />
         <ImageView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="0.2"
             android:layout_height="wrap_content"
-            android:src="@drawable/abc_ic_cab_done_holo_dark"
+            android:src="@drawable/ic_action_important"
             android:id="@+id/rating_star2"
             />
         <ImageView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="0.2"
             android:layout_height="wrap_content"
-            android:src="@drawable/abc_ic_cab_done_holo_dark"
+            android:src="@drawable/ic_action_important"
             android:id="@+id/rating_star3"
             />
         <ImageView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="0.2"
             android:layout_height="wrap_content"
-            android:src="@drawable/abc_ic_cab_done_holo_dark"
+            android:src="@drawable/ic_action_half_important"
             android:id="@+id/rating_star4"
             />
         <ImageView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="0.2"
             android:layout_height="wrap_content"
-            android:src="@drawable/abc_ic_cab_done_holo_dark"
+            android:src="@drawable/ic_action_not_important"
             android:id="@+id/rating_star5"
             />
         </LinearLayout>
@@ -141,36 +146,42 @@
     android:gravity="center"
     android:layout_centerHorizontal="true"
     android:padding="10dp"
-    android:layout_marginBottom="10dp">
+    android:layout_marginBottom="10dp"
+    android:weightSum="1">
 
     <ImageView
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:src="@drawable/abc_ic_cab_done_holo_dark"
+        android:layout_weight="0.2"
+        android:src="@drawable/ic_action_not_important"
         android:id="@+id/rate_and_review_star1"
         />
     <ImageView
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:src="@drawable/abc_ic_cab_done_holo_dark"
+        android:layout_weight="0.2"
+        android:src="@drawable/ic_action_not_important"
         android:id="@+id/rate_and_review_star2"
         />
     <ImageView
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:src="@drawable/abc_ic_cab_done_holo_dark"
+        android:layout_weight="0.2"
+        android:src="@drawable/ic_action_not_important"
         android:id="@+id/rate_and_review_star3"
         />
     <ImageView
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:src="@drawable/abc_ic_cab_done_holo_dark"
+        android:layout_weight="0.2"
+        android:src="@drawable/ic_action_not_important"
         android:id="@+id/rate_and_review_star4"
         />
     <ImageView
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:src="@drawable/abc_ic_cab_done_holo_dark"
+        android:layout_weight="0.2"
+        android:src="@drawable/ic_action_not_important"
         android:id="@+id/rate_and_review_star5"
         />
     </LinearLayout>
