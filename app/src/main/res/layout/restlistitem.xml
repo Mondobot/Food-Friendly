@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:padding="5dp">
+
+
+        <ImageView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:id="@+id/restaurant_image"
+            android:layout_alignParentStart="true"
+            android:src="@drawable/dairy_free"/>
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Restaurant Title"
+            android:gravity="left"
+            android:layout_toEndOf="@+id/restaurant_image"
+            android:id="@+id/listview_rest_title"
+            android:textSize="20dp"
+            android:paddingTop="9dp"/>
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Something, Something, 123 Whatever Lane"
+            android:textSize="12dp"
+            android:layout_toEndOf="@+id/restaurant_image"
+            android:layout_below="@+id/listview_rest_title"
+            android:textStyle="italic"
+            android:typeface="serif"
+            android:id="@+id/listview_address"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="20"
+            android:text="8 Km"
+            android:layout_toEndOf="@+id/restaurant_image"
+            android:layout_below="@+id/listview_address"/>
+
+        <TextView
+            android:layout_width="40dp"
+            android:layout_height="20dp"
+            android:text="STARS"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@id/listview_address"/>
+
+
+
+
+
+
+    </RelativeLayout>
+
+
+</LinearLayout>
