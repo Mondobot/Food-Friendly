@@ -3,15 +3,18 @@ package com.example.demouser.foodfriendly;
 import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
+
+import static android.view.View.OnClickListener;
 
 
 public class FilterFragment extends Fragment {
-
-    //private FilterPref mFilterPref;
     private OnFragmentInteractionListener mListener;
 
 
@@ -23,13 +26,40 @@ public class FilterFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.filter, container, false);
+        View v = inflater.inflate(R.layout.filter, container, false);
+        FilterPref ownPref = new FilterPref();
+
+        View general = v.findViewById(R.id.btn_dairy_free);
+        general.setOnClickListener(mFilterSelectOnClickListener);
+        if (!ownPref.getState(Utility.LACTOSE_STATE, v.getContext())) {
+            general.setAlpha(Utility.SELECT_OFF);
+            Log.d("initialize lactose","false");
+        }
+
+        general = v.findViewById(R.id.btn_gluten_free);
+        general.setOnClickListener(mFilterSelectOnClickListener);
+        if (!ownPref.getState(Utility.GLUTEN_STATE, v.getContext()))
+            general.setAlpha(Utility.SELECT_OFF);
+
+        general = v.findViewById(R.id.btn_vegan);
+        general.setOnClickListener(mFilterSelectOnClickListener);
+        if (!ownPref.getState(Utility.VEGAN_STATE, v.getContext()))
+            general.setAlpha(Utility.SELECT_OFF);
+
+
+        general = v.findViewById(R.id.btn_vegetarian);
+        general.setOnClickListener(mFilterSelectOnClickListener);
+        if (!ownPref.getState(Utility.VEGETARIAN_STATE, v.getContext()))
+            general.setAlpha(Utility.SELECT_OFF);
+
+        return v;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -70,5 +100,37 @@ public class FilterFragment extends Fragment {
         // TODO: Update argument type and name
         public void onFragmentInteraction(Uri uri);
     }
+
+    final OnClickListener mFilterSelectOnClickListener = new OnClickListener() {
+        @Override
+        public void onClick(final View v) {
+            FilterPref f = new FilterPref();
+            boolean newState = false;
+
+            switch(v.getId()) {
+                case R.id.btn_dairy_free:
+                    newState = f.toggleFilterState(Utility.LACTOSE_STATE, v.getContext());
+                    break;
+
+                case R.id.btn_gluten_free:
+                    newState = f.toggleFilterState(Utility.GLUTEN_STATE, v.getContext());
+                    break;
+
+                case R.id.btn_vegan:
+                    newState = f.toggleFilterState(Utility.VEGAN_STATE, v.getContext());
+                    break;
+
+                case R.id.btn_vegetarian:
+                    newState = f.toggleFilterState(Utility.VEGETARIAN_STATE, v.getContext());
+                    break;
+            }
+
+            if (newState) {
+                v.setAlpha(Utility.SELECT_ON);
+            } else {
+                v.setAlpha(Utility.SELECT_OFF);
+            }
+        }
+    };
 
 }
