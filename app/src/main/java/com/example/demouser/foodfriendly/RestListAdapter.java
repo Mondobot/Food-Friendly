@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 
 /**
- * Created by demouser on 01/08/2014.
+ * Created by Awesome Engineer on 01/08/2014.
  */
 public class RestListAdapter extends BaseAdapter {
 
