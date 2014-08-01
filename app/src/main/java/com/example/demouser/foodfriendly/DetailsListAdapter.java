@@ -74,7 +74,7 @@ public class DetailsListAdapter extends BaseAdapter {
                     holder = new DetailsViewHolder();
                     holder.mTitle = (TextView) v.findViewById(R.id.listview_rest_title);
                     holder.mAddress = (TextView) v.findViewById(R.id.restaurant_address);
-                    holder.mDist = (TextView) v.findViewById(R.id.restaurant_address);
+                    holder.mDist = (TextView) v.findViewById(R.id.distance);
 
                     holder.mRating.add((ImageView)v.findViewById(R.id.rating_star1));
                     holder.mRating.add((ImageView)v.findViewById(R.id.rating_star2));
@@ -90,16 +90,28 @@ public class DetailsListAdapter extends BaseAdapter {
 
 
                 } else {
+                    v = inflater.inflate(R.layout.review_item, null, false);
+                    holder = new DetailsViewHolder();
 
+                    holder.mTitle = (TextView) v.findViewById(R.id.review_name);
 
-                    v.setTag(holder);
+                    holder.mRating.add((ImageView)v.findViewById(R.id.rating_star1));
+                    holder.mRating.add((ImageView)v.findViewById(R.id.rating_star2));
+                    holder.mRating.add((ImageView)v.findViewById(R.id.rating_star3));
+                    holder.mRating.add((ImageView)v.findViewById(R.id.rating_star4));
+                    holder.mRating.add((ImageView)v.findViewById(R.id.rating_star5));
+
+                    holder.mText = (TextView) v.findViewById(R.id.review_text);
                 }
 
+                v.setTag(holder);
+
+
             } else {
-                holder = (RestaurantViewHolder)convertView.getTag();
+                holder = (DetailsViewHolder)convertView.getTag();
             }
 
-            holder.mTitle.setText(mDummyData[position]);
+            //holder.mTitle.setText(mDummyData[position]);
 
             return v;
         }
@@ -110,7 +122,8 @@ public class DetailsListAdapter extends BaseAdapter {
             public Vector<ImageView> mRating = new Vector<ImageView>();
             public Vector<ImageView> mUserRating = new Vector<ImageView>();
             public TextView mUrl;
-            
+
+            public TextView mText;
         }
 }
 
