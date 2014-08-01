@@ -8,16 +8,16 @@
         android:orderInCategory="60"
         android:showAsAction="always"/>
 
-    <item android:id="@+id/action_search"
-        android:icon="@drawable/ic_action_search"
-        android:title="Search"
+    <item android:id="@+id/action_show_me"
+        android:title="Show me"
         android:orderInCategory="70"
-        android:showAsAction="always"/>
-
-    <item android:id="@+id/action_dummy1"
-        android:title="dummy1"
-        android:orderInCategory="80"
         android:showAsAction="never"/>
+
+    <item android:id="@+id/action_search_nearby"
+        android:icon="@drawable/ic_action_search"
+        android:title="Search nearby"
+        android:orderInCategory="80"
+        android:showAsAction="always"/>
 
     <item android:id="@+id/action_dummy2"
         android:title="dummy2"

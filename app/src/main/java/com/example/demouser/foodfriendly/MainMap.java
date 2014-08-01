@@ -19,6 +19,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.demouser.foodfriendly.map.GoogleMapFragment;
 import com.example.demouser.foodfriendly.map.MapController;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -27,7 +28,8 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 public class MainMap extends ActionBarActivity implements
-        ActionBar.TabListener, FilterFragment.OnFragmentInteractionListener {
+        ActionBar.TabListener, FilterFragment.OnFragmentInteractionListener,
+        GoogleMapFragment.OnGoogleMapFragmentListener {
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -44,6 +46,7 @@ public class MainMap extends ActionBarActivity implements
     private ViewPager mViewPager;
 
     private MapController mMapController;
+    private GoogleMap mUIGoogleMap;
 
     private static final int TAB_FILTERS = 0;
     private static final int TAB_MAP = 1;
@@ -93,9 +96,6 @@ public class MainMap extends ActionBarActivity implements
 
 //        GoogleMap map = ((SupportMapFragment) mSectionsPagerAdapter.getItem(TAB_MAP)).getMap();
 ////        mMapController = new MapController(map, this.getApplicationContext());
-//
-//        final LatLng PERTH = new LatLng(-31.90, 115.86);
-//        Marker perth = map.addMarker(new MarkerOptions().position(PERTH).draggable(true));
 
     }
 
@@ -115,15 +115,18 @@ public class MainMap extends ActionBarActivity implements
         switch (id) {
         case R.id.action_settings:
             return true;
-        case R.id.action_search:
-           GoogleMap map = ((SupportMapFragment) mSectionsPagerAdapter.getItem(TAB_MAP)).getMap();
-////        mMapController = new MapController(map, this.getApplicationContext());
-//
-           final LatLng PERTH = new LatLng(-31.90, 115.86);
-            Log.d("MAIN", "Is mapfragment null? " + (((SupportMapFragment) mSectionsPagerAdapter.getItem(TAB_MAP)) == null));
-            Log.d("MAIN", "Is map null? " + (map == null));
+        case R.id.action_show_me:
 
-           Marker perth = map.addMarker(new MarkerOptions().position(PERTH).draggable(true));
+            mViewPager.setCurrentItem(TAB_MAP);
+            if(mMapController != null) {
+                mMapController.showCurrentLocation();
+            }
+            return true;
+        case R.id.action_search_nearby:
+            if(mMapController != null) {
+                mMapController.searchNearbyCurrentLocation();
+            }
+            return true;
         }
 
         return super.onOptionsItemSelected(item);
@@ -152,14 +155,31 @@ public class MainMap extends ActionBarActivity implements
 
     }
 
+    @Override
+    public void onMapReady(GoogleMap map) {
+        mUIGoogleMap = map;
+        mMapController = new MapController(mUIGoogleMap, this.getApplicationContext());
+    }
+
     /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
      * one of the sections/tabs/pages.
      */
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
+        FilterFragment mFilterFragment;
+        GoogleMapFragment mGoogleMapFragment;
+        PlaceholderFragment mPlaceholderFragment3;
+        PlaceholderFragment mPlaceholderFragment4;
+        PlaceholderFragment mPlaceholderFragment5;
+
         public SectionsPagerAdapter(FragmentManager fm) {
             super(fm);
+            mFilterFragment = new FilterFragment();
+            mGoogleMapFragment = new GoogleMapFragment();
+            mPlaceholderFragment3 =new PlaceholderFragment();
+            mPlaceholderFragment4 =new PlaceholderFragment();
+            mPlaceholderFragment5 =new PlaceholderFragment();
         }
 
         @Override
@@ -168,16 +188,16 @@ public class MainMap extends ActionBarActivity implements
             // Return a PlaceholderFragment (defined as a static inner class
             // below).
             switch (position) {
-                case 0:
-                    return new FilterFragment();
-                case 1:
-                    return SupportMapFragment.newInstance();
+                case TAB_FILTERS:
+                    return mFilterFragment;
+                case TAB_MAP:
+                    return mGoogleMapFragment;
                 case TAB_NEARBY:
-                    return PlaceholderFragment.newInstance(position + 1);
+                    return mPlaceholderFragment3;
                 case TAB_RESTAURANT:
-                    return PlaceholderFragment.newInstance(position + 1);
+                    return mPlaceholderFragment4;
                 case TAB_REVIEW:
-                    return PlaceholderFragment.newInstance(position + 1);
+                    return mPlaceholderFragment5;
                 default:
                     return PlaceholderFragment.newInstance(position + 1);
             }

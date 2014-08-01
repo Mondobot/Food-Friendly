@@ -18,10 +18,8 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 
 import javax.net.ssl.HttpsURLConnection;
@@ -31,6 +29,8 @@ import javax.net.ssl.HttpsURLConnection;
  */
 public class MapController {
 
+    private static final String LOG_TAG = "MAPCTRL";
+
     private Context mApplicationContext;
     private GoogleMap mMap;
     private Location mLocation;
@@ -39,6 +39,10 @@ public class MapController {
         mMap = map;
         mApplicationContext = applicationContext;
 
+        registerLocationListener();
+    }
+
+    private void registerLocationListener () {
         // Acquire a reference to the system Location Manager
         LocationManager locationManager = (LocationManager) mApplicationContext.getSystemService(Context.LOCATION_SERVICE);
 
@@ -47,14 +51,13 @@ public class MapController {
             public void onLocationChanged(Location location) {
                 // Called when a new location is found by the network location provider.
                 mLocation = location;
-                Log.d("MAPCTRL", "New location: " + mLocation.toString());
-                Log.d("MAPCTRL", "Map: " + mMap.toString());
+                Log.d(LOG_TAG, "New location: " + mLocation.toString());
+                Log.d(LOG_TAG, "Map: " + mMap.toString());
 
-                mMap.addMarker(new MarkerOptions()
-                        .position(new LatLng(mLocation.getLatitude(), mLocation.getLongitude()))
-                        .title("Hello world"));
+//                mMap.addMarker(new MarkerOptions()
+//                        .position(new LatLng(mLocation.getLatitude(), mLocation.getLongitude()))
+//                        .title("My Location Changed"));
 
-                new MapControllerUpdaterTask().execute(convertLocationToString(mLocation));
             }
 
             public void onStatusChanged(String provider, int status, Bundle extras) {}
@@ -66,70 +69,93 @@ public class MapController {
 
         // Register the listener with the Location Manager to receive location updates
         locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
-
-//        new MapControllerUpdaterTask().execute(convertLocationToString(mLocation));
     }
 
-    private static final String LOG_TAG = "ExampleApp";
-
-    private static final String PLACES_API_BASE = "https://maps.googleapis.com/maps/api/place";
-    private static final String TYPE_AUTOCOMPLETE = "/autocomplete";
-    private static final String TYPE_SEARCH = "/search";
-    private static final String OUT_JSON = "/json";
-
-    private static final String API_KEY = "AIzaSyB7iG7Ltiwy-jBVqkJWU22LVFfADLwUKqg";
-
-    private static final String TYPE_RANKBY = "&rankby=distance";
-    private static final String TYPE_TYPES = "&types=food|restaurant|cafe";
-    private static final String TYPE_LOCATION = "&location=";
-    private static final String TYPE_RADIUS = "&radius=1000";
-
-
-    private String convertLocationToString (Location location) {
-
-        String latitude = String.valueOf(location.getLatitude());
-        String longitude = String.valueOf(location.getLongitude());
-
-        StringBuilder result = new StringBuilder(latitude);
-        result.append(",");
-        result.append(longitude);
-        return result.toString();
+    public void showCurrentLocation () {
+        mMap.addMarker(new MarkerOptions()
+                .position(new LatLng(mLocation.getLatitude(), mLocation.getLongitude()))
+                .title("My Location"));
     }
 
+    public void searchNearbyCurrentLocation () {
+        new SearchNearbyAddressCommunicator(mLocation);
+    }
 
-    private class MapControllerUpdaterTask extends AsyncTask<String, Void, Void> {
+    public void showLocation (String address) {
+
+    }
+
+    private class SearchNearbyAddressCommunicator {
+
+        private static final String PLACES_API_BASE = "https://maps.googleapis.com/maps/api/place";
+        private static final String TYPE_AUTOCOMPLETE = "/autocomplete";
+        private static final String TYPE_SEARCH = "/search";
+        private static final String OUT_JSON = "/json";
+
+        private static final String API_KEY = "AIzaSyB7iG7Ltiwy-jBVqkJWU22LVFfADLwUKqg";
+
+        private static final String TYPE_KEY = "?key=";
+        private static final String TYPE_RANKBY = "&rankby=distance";
+        private static final String TYPE_TYPES = "&types=food";
+        private static final String TYPE_LOCATION = "&location=";
+        private static final String TYPE_RADIUS = "&radius=1000";
+        private static final String TYPE_SENSOR = "&sensor=false";
+
+        public SearchNearbyAddressCommunicator (Location location) {
+            String locationString = convertLocationToString(mLocation);
+            String request = createRequestString(TYPE_SEARCH, locationString);
+
+            new RemoteCommunicatorTask().execute(request);
+        }
+
+        private String convertLocationToString (Location location) {
+
+            String latitude = String.valueOf(location.getLatitude());
+            String longitude = String.valueOf(location.getLongitude());
+
+            StringBuilder result = new StringBuilder(latitude);
+            result.append(",");
+            result.append(longitude);
+            return result.toString();
+        }
+
+        private String createRequestString (String type, String location) {
+            StringBuilder sb = new StringBuilder(PLACES_API_BASE + type + OUT_JSON);
+            sb.append(TYPE_KEY);
+            sb.append(API_KEY);
+            sb.append(TYPE_RANKBY);
+            sb.append(TYPE_TYPES);
+//            sb.append(TYPE_RADIUS);
+            sb.append(TYPE_SENSOR);
+            sb.append(TYPE_LOCATION);
+            sb.append(location);
+            return sb.toString();
+        }
+    }
+
+    private class RemoteCommunicatorTask extends AsyncTask<String, Void, Void> {
 
         @Override
         protected Void doInBackground(String... params) {
-            Log.i("MAPCTRL", "Starting communication..");
-            String locationData = params[0];
+            Log.i(LOG_TAG, "Starting communication..");
+            String request = params[0];
             try {
-                StringBuilder requestBuilder = new StringBuilder(TYPE_LOCATION);
-                requestBuilder.append(locationData);
-                String request = createRequestString(TYPE_SEARCH, requestBuilder.toString());
+                Log.d(LOG_TAG, "Sending: " + request);
                 String jsonResult = getJSONFromServer(request);
 
 
             } catch (NullPointerException e) {
             }
-            Log.i("MAPCTRL", "Finished communication.");
+            Log.i(LOG_TAG, "Finished communication.");
             return null;
         }
 
 
         @Override
         protected void onPostExecute(Void aVoid) {
-            Log.i("MAPCTRL", "Postexecute.");
+            Log.i(LOG_TAG, "Postexecute.");
 
             super.onPostExecute(aVoid);
-        }
-
-        private String createRequestString (String type, String parameters) {
-            StringBuilder sb = new StringBuilder(PLACES_API_BASE + type + OUT_JSON);
-            sb.append("?key=" + API_KEY);
-            sb.append(parameters);
-            sb.append("&sensor=false");
-            return sb.toString();
         }
 
         private String getJSONFromServer(String request) {
@@ -162,7 +188,7 @@ public class MapController {
             }
 
             result = jsonResults.toString();
-            Log.d("RESULT", result);
+            Log.d(LOG_TAG, result);
 
             return result;
         }
