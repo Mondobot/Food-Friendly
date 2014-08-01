@@ -19,8 +19,8 @@
         android:orderInCategory="80"
         android:showAsAction="always"/>
 
-    <item android:id="@+id/action_dummy2"
-        android:title="dummy2"
+    <item android:id="@+id/action_search"
+        android:title="@string/action_search"
         android:orderInCategory="90"
         android:showAsAction="never"/>
 

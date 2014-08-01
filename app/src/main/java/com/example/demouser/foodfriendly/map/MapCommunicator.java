@@ -136,7 +136,7 @@ public class MapCommunicator {
             if (mType == COMTYPE_SEARCH) {
                 try {
                     JSONObject jsonObj = new JSONObject(input);
-                    List<HashMap<String, String>> places = new Place_JSONParser().parse(jsonObj);
+                    List<HashMap<String, String>> places = new Place_JSONParser().parse(Place_JSONParser.parseForResult, jsonObj);
                     Log.d(LOG_TAG, "Places: " + places.toString());
 
                     LatLngBounds.Builder boundsBuilder = LatLngBounds.builder();

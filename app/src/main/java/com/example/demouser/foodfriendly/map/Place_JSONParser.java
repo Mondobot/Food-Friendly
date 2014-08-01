@@ -14,13 +14,25 @@ import org.json.JSONObject;
  */
 public class Place_JSONParser {
 
+    public static final int parseForResult = 0;
+    public static final int parseForPredictions = 1;
+
     /** Receives a JSONObject and returns a list */
-    public List<HashMap<String,String>> parse(JSONObject jObject){
+    public List<HashMap<String,String>> parse(int parseFor, JSONObject jObject){
 
         JSONArray jPlaces = null;
         try {
+            String element = "";
             /** Retrieves all the elements in the 'places' array */
-            jPlaces = jObject.getJSONArray("results");
+            switch (parseFor) {
+                case parseForResult:
+                    element = "results";
+                    break;
+                case parseForPredictions:
+                    element = "predictions";
+                    break;
+            }
+            jPlaces = jObject.getJSONArray(element);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -58,29 +70,31 @@ public class Place_JSONParser {
         String longitude="";
         String place_id="";
 
-        try {
-            // Extracting Place name, if available
-            if(!jPlace.isNull("name")){
-                placeName = jPlace.getString("name");
+        if (jPlace != null) {
+            try {
+                // Extracting Place name, if available
+                if (!jPlace.isNull("name")) {
+                    placeName = jPlace.getString("name");
+                }
+
+                // Extracting Place Vicinity, if available
+                if (!jPlace.isNull("vicinity")) {
+                    vicinity = jPlace.getString("vicinity");
+                }
+
+                latitude = jPlace.getJSONObject("geometry").getJSONObject("location").getString("lat");
+                longitude = jPlace.getJSONObject("geometry").getJSONObject("location").getString("lng");
+                place_id = jPlace.getString("place_id");
+
+                place.put("place_name", placeName);
+                place.put("vicinity", vicinity);
+                place.put("lat", latitude);
+                place.put("lng", longitude);
+                place.put("place_id", place_id);
+
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
-
-            // Extracting Place Vicinity, if available
-            if(!jPlace.isNull("vicinity")){
-                vicinity = jPlace.getString("vicinity");
-            }
-
-            latitude = jPlace.getJSONObject("geometry").getJSONObject("location").getString("lat");
-            longitude = jPlace.getJSONObject("geometry").getJSONObject("location").getString("lng");
-            place_id = jPlace.getString("place_id");
-
-            place.put("place_name", placeName);
-            place.put("vicinity", vicinity);
-            place.put("lat", latitude);
-            place.put("lng", longitude);
-            place.put("place_id", place_id);
-
-        } catch (JSONException e) {
-            e.printStackTrace();
         }
         return place;
     }
