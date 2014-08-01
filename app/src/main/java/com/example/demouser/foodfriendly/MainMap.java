@@ -19,6 +19,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.demouser.foodfriendly.map.DetailsFragment;
 import com.example.demouser.foodfriendly.map.GoogleMapFragment;
 import com.example.demouser.foodfriendly.map.MapController;
 import com.google.android.gms.maps.GoogleMap;
@@ -170,16 +171,16 @@ public class MainMap extends ActionBarActivity implements
         FilterFragment mFilterFragment;
         GoogleMapFragment mGoogleMapFragment;
         PlaceholderFragment mPlaceholderFragment3;
-        PlaceholderFragment mPlaceholderFragment4;
+        DetailsFragment mDetailsFragment;
         PlaceholderFragment mPlaceholderFragment5;
 
         public SectionsPagerAdapter(FragmentManager fm) {
             super(fm);
             mFilterFragment = new FilterFragment();
             mGoogleMapFragment = new GoogleMapFragment();
-            mPlaceholderFragment3 =new PlaceholderFragment();
-            mPlaceholderFragment4 =new PlaceholderFragment();
-            mPlaceholderFragment5 =new PlaceholderFragment();
+            mPlaceholderFragment3 = new PlaceholderFragment();
+            mDetailsFragment = new DetailsFragment();
+            mPlaceholderFragment5 = new PlaceholderFragment();
         }
 
         @Override
@@ -195,7 +196,7 @@ public class MainMap extends ActionBarActivity implements
                 case TAB_NEARBY:
                     return mPlaceholderFragment3;
                 case TAB_RESTAURANT:
-                    return mPlaceholderFragment4;
+                    return mDetailsFragment;
                 case TAB_REVIEW:
                     return mPlaceholderFragment5;
                 default:
