@@ -16,7 +16,7 @@
             android:layout_height="80dp"
             android:id="@+id/restaurant_image"
             android:layout_alignParentStart="true"
-            android:src="@drawable/dairy_free"/>
+            android:src="@drawable/small_logo"/>
 
         <TextView
             android:layout_width="fill_parent"

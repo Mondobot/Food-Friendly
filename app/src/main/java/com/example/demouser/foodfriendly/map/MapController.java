@@ -56,6 +56,7 @@ public class MapController {
     }
 
     private static void registerLocationListener () {
+        Log.d(LOG_TAG, "register location listener");
         // Acquire a reference to the system Location Manager
         LocationManager locationManager = (LocationManager) mApplicationContext.getSystemService(Context.LOCATION_SERVICE);
 
@@ -63,10 +64,11 @@ public class MapController {
         LocationListener locationListener = new LocationListener() {
             public void onLocationChanged(Location location) {
                 // Called when a new location is found by the network location provider.
-                mLocation = location;
-                Log.d(LOG_TAG, "New location: " + mLocation.toString());
-                Log.d(LOG_TAG, "Map: " + mMap.toString());
-
+                if (location != null) {
+                    mLocation = location;
+                    Log.d(LOG_TAG, "New location: " + mLocation.toString());
+                    Log.d(LOG_TAG, "Map: " + mMap.toString());
+                }
             }
 
             public void onStatusChanged(String provider, int status, Bundle extras) {}
@@ -81,17 +83,21 @@ public class MapController {
     }
 
     public void showCurrentLocation () {
-        mMap.addMarker(new MarkerOptions()
-                .position(new LatLng(mLocation.getLatitude(), mLocation.getLongitude()))
-                .title("My Location"));
+        if (mLocation != null ) {
+            mMap.addMarker(new MarkerOptions()
+                    .position(new LatLng(mLocation.getLatitude(), mLocation.getLongitude()))
+                    .title("My Location"));
+        }
     }
 
     public void searchNearbyCurrentLocation () {
+        if (mLocation == null) return;
         MapCommunicator mapCommunicator = new MapCommunicator(mMap);
         mapCommunicator.searchNearby(mLocation);
     }
 
     public void searchPlaceDetails (String placeID) {
+        if (mLocation == null) return;
         MapCommunicator mapCommunicator = new MapCommunicator(mMap);
         mapCommunicator.searchPlaceDetails(placeID);
     }

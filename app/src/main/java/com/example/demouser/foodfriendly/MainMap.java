@@ -48,7 +48,7 @@ public class MainMap extends ActionBarActivity implements
     private static final int TAB_MAP = 1;
     private static final int TAB_NEARBY = 2;
     private static final int TAB_RESTAURANT = 3;
-    private static final int TAB_REVIEW = 4;
+   // private static final int TAB_REVIEW = 4;
 
 
     @Override
@@ -158,14 +158,17 @@ public class MainMap extends ActionBarActivity implements
         Log.d("OnItemClicker", "OnItemClicked entering");
         if (fragType.equals(Utility.REST_FRAG) || fragType.equals(Utility.MAP_FRAG)) {
             Log.d("OnItemClicker", "OnItemClicked wohoo");
-            String myString = (String)data;
+            Restaurant myRes = (Restaurant)data;
             ActionBar actionBar = getSupportActionBar();
 
             // Do click logic
             // We need to move this in the fragment file
             DetailsFragment selectedRest = (DetailsFragment)mSectionsPagerAdapter.getItem(TAB_RESTAURANT);
             TextView restName = (TextView)selectedRest.getView().findViewById(R.id.restaurant_name);
-            restName.setText(myString);
+            restName.setText(myRes.getName());
+
+            restName = (TextView)selectedRest.getView().findViewById(R.id.restaurant_address);
+            restName.setText(myRes.getAddress());
 
             actionBar.selectTab(actionBar.getTabAt(TAB_RESTAURANT));
         }
@@ -182,7 +185,7 @@ public class MainMap extends ActionBarActivity implements
         GoogleMapFragment mGoogleMapFragment;
         RestaurantList mRestaurantList;
         DetailsFragment mDetailsFragment;
-        PlaceholderFragment mPlaceholderFragment5;
+        //PlaceholderFragment mPlaceholderFragment5;
 
         public SectionsPagerAdapter(FragmentManager fm) {
             super(fm);
@@ -190,7 +193,7 @@ public class MainMap extends ActionBarActivity implements
             mGoogleMapFragment = new GoogleMapFragment();
             mRestaurantList = new RestaurantList();
             mDetailsFragment = new DetailsFragment();
-            mPlaceholderFragment5 = new PlaceholderFragment();
+            //mPlaceholderFragment5 = new PlaceholderFragment();
         }
 
         @Override
@@ -207,8 +210,8 @@ public class MainMap extends ActionBarActivity implements
                     return mRestaurantList;
                 case TAB_RESTAURANT:
                     return mDetailsFragment;
-                case TAB_REVIEW:
-                    return mPlaceholderFragment5;
+               // case TAB_REVIEW:
+                //    return mPlaceholderFragment5;
                 default:
                     return PlaceholderFragment.newInstance(position + 1);
             }
@@ -217,7 +220,7 @@ public class MainMap extends ActionBarActivity implements
         @Override
         public int getCount() {
             // Show 5 total pages.
-            return 5;
+            return 4;
         }
 
         @Override
@@ -232,8 +235,8 @@ public class MainMap extends ActionBarActivity implements
                     return getString(R.string.title_nearby).toUpperCase(l);
                 case TAB_RESTAURANT:
                     return getString(R.string.title_restaurant).toUpperCase(l);
-                case TAB_REVIEW:
-                    return getString(R.string.title_review).toUpperCase(l);
+             //   case TAB_REVIEW:
+               //     return getString(R.string.title_review).toUpperCase(l);
             }
             return null;
         }

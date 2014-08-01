@@ -35,8 +35,8 @@ public class RestaurantList extends Fragment {
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String myText = (String) mListView.getItemAtPosition(position);
-                mListener.OnItemClicked(Utility.REST_FRAG, myText);
+                Restaurant myRes = (Restaurant)mListView.getItemAtPosition(position);
+                mListener.OnItemClicked(Utility.REST_FRAG, myRes);
 
             }
         });

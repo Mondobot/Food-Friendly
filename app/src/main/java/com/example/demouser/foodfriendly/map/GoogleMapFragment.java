@@ -38,7 +38,7 @@ public class GoogleMapFragment extends SupportMapFragment
             Log.d(LOG_TAG, "exist? " + (r!=null));
             if (r != null) {
                 String placeName = r.getName();
-                mCallback.OnItemClicked(Utility.MAP_FRAG, placeName);
+                mCallback.OnItemClicked(Utility.MAP_FRAG, r);
             }
         }
     }
