@@ -12,7 +12,7 @@ import android.widget.TextView;
 import java.util.Vector;
 
 /**
- * Created by demouser on 01/08/2014.
+ * Created by Awesome Engineer on 01/08/2014.
  */
 public class DetailsListAdapter extends BaseAdapter {
 

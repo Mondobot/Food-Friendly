@@ -2,6 +2,7 @@ package com.example.demouser.foodfriendly;
 
 import android.content.Context;
 import android.util.Log;
+import android.widget.BaseAdapter;
 
 import com.example.demouser.foodfriendly.FilterPref;
 import com.example.demouser.foodfriendly.R;
@@ -18,6 +19,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Random;
 
@@ -43,6 +45,8 @@ public class RestaurantManager {
     private static Context mApplicationContext;
     private static Random mRandomGenerator;
 
+    private static HashSet<BaseAdapter> mRegAdapters;
+
     public static void initialize(Context applicationContext) {
         mApplicationContext = applicationContext;
         mRandomGenerator = new Random();
@@ -51,6 +55,16 @@ public class RestaurantManager {
         mGlutenFreeRestaurants = new HashSet<String>();
         mVeganRestaurants = new HashSet<String>();
         mVegetarianRestaurants = new HashSet<String>();
+        mRegAdapters = new HashSet<BaseAdapter>();
+    }
+
+    public static void registerAdapter(BaseAdapter toRegister) {
+        mRegAdapters.add(toRegister);
+    }
+
+    public static void notifyAdapters() {
+        for (BaseAdapter b : mRegAdapters)
+            b.notifyDataSetChanged();
     }
 
     public void updateRestaurants(List<HashMap<String,String>> restaurants){
@@ -80,6 +94,8 @@ public class RestaurantManager {
                 }
             }
         }
+
+        notifyAdapters();
         Log.d("RESTA", "Updated: " + mAllRestaurants.toString());
     }
 

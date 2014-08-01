@@ -122,6 +122,7 @@ public class MainMap extends ActionBarActivity implements
         case R.id.action_search_nearby:
             if(mMapFragment != null) {
                 mMapFragment.searchNearbyCurrentLocation();
+
             }
             return true;
         }

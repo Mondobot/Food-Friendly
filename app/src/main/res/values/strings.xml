@@ -19,7 +19,7 @@
 
     <string name="restaurant_place_id">"place_id"</string>
     <string name="restaurant_name">"place_name"</string>
-    <string name="restaurant_address">"formatted_address"</string>
+    <string name="restaurant_address">"vicinity"</string>
     <string name="restaurant_url">"website"</string>
     <string name="restaurant_ranking">"rating"</string>
     <!-- <string name="distance"></string> -->

@@ -24,7 +24,7 @@ public class Restaurant {
 //        String ranking = map.get(R.string.restaurant_ranking);
         this.mPlaceId = map.get("place_id");
         this.mName = map.get("place_name");
-        this.mAddress = map.get("formatted_address");
+        this.mAddress = map.get("vicinity");
         this.mUrl = map.get("url");
         String ranking = map.get("rating");
         this.isRanked = (ranking == null || ranking == "NA-") ? false : true;

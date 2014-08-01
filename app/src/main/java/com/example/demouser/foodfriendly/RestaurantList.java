@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -25,7 +26,10 @@ public class RestaurantList extends Fragment {
 
         Log.d("something", "pass");
 
-        mListView.setAdapter(new RestListAdapter(getActivity()));
+        BaseAdapter x = new RestListAdapter(getActivity());
+
+        RestaurantManager.registerAdapter(x);
+        mListView.setAdapter(x);
 
 
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

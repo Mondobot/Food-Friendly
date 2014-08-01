@@ -1,6 +1,7 @@
 package com.example.demouser.foodfriendly;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,17 +15,6 @@ import android.widget.TextView;
  */
 public class RestListAdapter extends BaseAdapter {
 
-    private String[] mDummyData = {"Afghanistan", "Albania", "Algeria", "Andorra", "Angola","Argentina"
-            ,"Armenia","Austria","Bahamas","Bahrain", "Bangladesh","Barbados", "Belarus","Belgium",
-            "Benin","Bhutan","Bolivia","Bosnia & Herzegovina","Botswana","Brazil","Bulgaria",
-            "Burkina Faso","Burma","Burundi","Cambodia","Cameroon","Canada", "China","Colombia",
-            "Comoros","Congo","Croatia","Cuba","Cyprus","Czech Republic","Denmark", "Georgia",
-            "Germany","Ghana","Great Britain","Greece","Hungary","Holland","India","Iran","Iraq",
-            "Italy","Somalia", "Spain", "Sri Lanka", "Sudan","Suriname", "Swaziland","Sweden",
-            "Switzerland", "Syria","Uganda","Ukraine","United Arab Emirates","United Kingdom",
-            "United States","Uruguay","Uzbekistan","Vanuatu","Venezuela","Vietnam",
-            "Yemen","Zaire","Zambia","Zimbabwe"};
-
     private Context mContext;
 
     public RestListAdapter(Context context){
@@ -33,12 +23,13 @@ public class RestListAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return mDummyData.length;
+        Log.d("count", String.valueOf(RestaurantManager.getInstance().getCount()));
+        return RestaurantManager.getInstance().getCount();
     }
 
     @Override
     public Object getItem(int position) {
-        return mDummyData[position];
+        return RestaurantManager.getInstance().getItemByPosition(position);
     }
 
     @Override
@@ -58,8 +49,8 @@ public class RestListAdapter extends BaseAdapter {
             holder = new RestaurantViewHolder();
             holder.mImage = (ImageView)v.findViewById(R.id.restaurant_image);
             holder.mTitle = (TextView)v.findViewById(R.id.listview_rest_title);
-            holder.mAddress = (TextView)v.findViewById(R.id.restaurant_address);
-            holder.mDist = (TextView)v.findViewById(R.id.restaurant_address);
+            holder.mAddress = (TextView)v.findViewById(R.id.listview_address);
+            holder.mDist = (TextView)v.findViewById(R.id.listview_dist);
 
             v.setTag(holder);
 
@@ -67,7 +58,22 @@ public class RestListAdapter extends BaseAdapter {
             holder = (RestaurantViewHolder)convertView.getTag();
         }
 
-        holder.mTitle.setText(mDummyData[position]);
+        Restaurant r = RestaurantManager.getInstance().getItemByPosition(position);
+
+        holder.mTitle.setText(r.getName());
+
+        Log.d("address", r.getAddress());
+        holder.mAddress.setText(r.getAddress());
+
+
+        String rating = "";
+        float rating_f = r.getRanking();
+        for (int i = 0; i < rating_f; ++i) {
+            rating += "*";
+        }
+
+      //  holder.mRating.setText(rating);
+       // holder.mDis
 
         return v;
     }
@@ -77,6 +83,7 @@ public class RestListAdapter extends BaseAdapter {
         public TextView mTitle;
         public TextView mAddress;
         public TextView mDist;
+        public TextView mRating;
     }
 }
 
