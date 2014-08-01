@@ -15,4 +15,6 @@ public class Utility {
 
     public static final float SELECT_OFF = 0.25f;
     public static final float SELECT_ON = 1.0f;
+
+    public  enum FilterStatus {YES, NO, FilterStatus, UNFILTERED};
 }
