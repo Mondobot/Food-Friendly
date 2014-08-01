@@ -12,16 +12,24 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.demouser.foodfriendly.map.GoogleMapFragment;
+import com.example.demouser.foodfriendly.map.MapController;
+import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 public class MainMap extends ActionBarActivity implements
-        ActionBar.TabListener, FilterFragment.OnFragmentInteractionListener {
+        ActionBar.TabListener, FilterFragment.OnFragmentInteractionListener,
+        GoogleMapFragment.OnGoogleMapFragmentListener {
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -30,12 +38,22 @@ public class MainMap extends ActionBarActivity implements
      * becomes too memory intensive, it may be best to switch to a
      * {@link android.support.v4.app.FragmentStatePagerAdapter}.
      */
-    SectionsPagerAdapter mSectionsPagerAdapter;
+    private SectionsPagerAdapter mSectionsPagerAdapter;
 
     /**
      * The {@link ViewPager} that will host the section contents.
      */
-    ViewPager mViewPager;
+    private ViewPager mViewPager;
+
+    private MapController mMapController;
+    private GoogleMap mUIGoogleMap;
+
+    private static final int TAB_FILTERS = 0;
+    private static final int TAB_MAP = 1;
+    private static final int TAB_NEARBY = 2;
+    private static final int TAB_RESTAURANT = 3;
+    private static final int TAB_REVIEW = 4;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,8 +66,7 @@ public class MainMap extends ActionBarActivity implements
 
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
-        mSectionsPagerAdapter = new SectionsPagerAdapter(
-                getSupportFragmentManager());
+        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.pager);
@@ -58,13 +75,13 @@ public class MainMap extends ActionBarActivity implements
         // When swiping between different sections, select the corresponding
         // tab. We can also use ActionBar.Tab#select() to do this if we have
         // a reference to the Tab.
-        mViewPager
-                .setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
-                    @Override
-                    public void onPageSelected(int position) {
-                        actionBar.setSelectedNavigationItem(position);
-                    }
-                });
+        mViewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+            @Override
+            public void onPageSelected(int position) {
+                actionBar.setSelectedNavigationItem(position);
+            }
+        });
+
 
         // For each of the sections in the app, add a tab to the action bar.
         for (int i = 0; i < mSectionsPagerAdapter.getCount(); i++) {
@@ -76,6 +93,10 @@ public class MainMap extends ActionBarActivity implements
                     .setText(mSectionsPagerAdapter.getPageTitle(i))
                     .setTabListener(this));
         }
+
+//        GoogleMap map = ((SupportMapFragment) mSectionsPagerAdapter.getItem(TAB_MAP)).getMap();
+////        mMapController = new MapController(map, this.getApplicationContext());
+
     }
 
     @Override
@@ -91,9 +112,23 @@ public class MainMap extends ActionBarActivity implements
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        if (id == R.id.action_settings) {
+        switch (id) {
+        case R.id.action_settings:
+            return true;
+        case R.id.action_show_me:
+
+            mViewPager.setCurrentItem(TAB_MAP);
+            if(mMapController != null) {
+                mMapController.showCurrentLocation();
+            }
+            return true;
+        case R.id.action_search_nearby:
+            if(mMapController != null) {
+                mMapController.searchNearbyCurrentLocation();
+            }
             return true;
         }
+
         return super.onOptionsItemSelected(item);
     }
 
@@ -120,14 +155,31 @@ public class MainMap extends ActionBarActivity implements
 
     }
 
+    @Override
+    public void onMapReady(GoogleMap map) {
+        mUIGoogleMap = map;
+        mMapController = new MapController(mUIGoogleMap, this.getApplicationContext());
+    }
+
     /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
      * one of the sections/tabs/pages.
      */
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
+        FilterFragment mFilterFragment;
+        GoogleMapFragment mGoogleMapFragment;
+        PlaceholderFragment mPlaceholderFragment3;
+        PlaceholderFragment mPlaceholderFragment4;
+        PlaceholderFragment mPlaceholderFragment5;
+
         public SectionsPagerAdapter(FragmentManager fm) {
             super(fm);
+            mFilterFragment = new FilterFragment();
+            mGoogleMapFragment = new GoogleMapFragment();
+            mPlaceholderFragment3 =new PlaceholderFragment();
+            mPlaceholderFragment4 =new PlaceholderFragment();
+            mPlaceholderFragment5 =new PlaceholderFragment();
         }
 
         @Override
@@ -136,16 +188,16 @@ public class MainMap extends ActionBarActivity implements
             // Return a PlaceholderFragment (defined as a static inner class
             // below).
             switch (position) {
-                case 0:
-                    return new FilterFragment();
-                case 1:
-                    return SupportMapFragment.newInstance();
-                case 2:
-                    return PlaceholderFragment.newInstance(position + 1);
-                case 3:
-                    return PlaceholderFragment.newInstance(position + 1);
-                case 4:
-                    return PlaceholderFragment.newInstance(position + 1);
+                case TAB_FILTERS:
+                    return mFilterFragment;
+                case TAB_MAP:
+                    return mGoogleMapFragment;
+                case TAB_NEARBY:
+                    return mPlaceholderFragment3;
+                case TAB_RESTAURANT:
+                    return mPlaceholderFragment4;
+                case TAB_REVIEW:
+                    return mPlaceholderFragment5;
                 default:
                     return PlaceholderFragment.newInstance(position + 1);
             }
@@ -161,15 +213,15 @@ public class MainMap extends ActionBarActivity implements
         public CharSequence getPageTitle(int position) {
             Locale l = Locale.getDefault();
             switch (position) {
-                case 0:
+                case TAB_FILTERS:
                     return getString(R.string.title_filters).toUpperCase(l);
-                case 1:
+                case TAB_MAP:
                     return getString(R.string.title_map).toUpperCase(l);
-                case 2:
+                case TAB_NEARBY:
                     return getString(R.string.title_nearby).toUpperCase(l);
-                case 3:
+                case TAB_RESTAURANT:
                     return getString(R.string.title_restaurant).toUpperCase(l);
-                case 4:
+                case TAB_REVIEW:
                     return getString(R.string.title_review).toUpperCase(l);
             }
             return null;
