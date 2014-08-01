@@ -45,8 +45,7 @@ public class MainMap extends ActionBarActivity implements
      */
     private ViewPager mViewPager;
 
-    private MapController mMapController;
-    private GoogleMap mUIGoogleMap;
+    private GoogleMapFragment mMapFragment;
 
     private static final int TAB_FILTERS = 0;
     private static final int TAB_MAP = 1;
@@ -71,6 +70,7 @@ public class MainMap extends ActionBarActivity implements
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.pager);
         mViewPager.setAdapter(mSectionsPagerAdapter);
+        mMapFragment = (GoogleMapFragment) mSectionsPagerAdapter.getItem(TAB_MAP);
 
         // When swiping between different sections, select the corresponding
         // tab. We can also use ActionBar.Tab#select() to do this if we have
@@ -118,13 +118,13 @@ public class MainMap extends ActionBarActivity implements
         case R.id.action_show_me:
 
             mViewPager.setCurrentItem(TAB_MAP);
-            if(mMapController != null) {
-                mMapController.showCurrentLocation();
+            if(mMapFragment != null) {
+                mMapFragment.showCurrentLocation();
             }
             return true;
         case R.id.action_search_nearby:
-            if(mMapController != null) {
-                mMapController.searchNearbyCurrentLocation();
+            if(mMapFragment != null) {
+                mMapFragment.searchNearbyCurrentLocation();
             }
             return true;
         }
@@ -157,8 +157,6 @@ public class MainMap extends ActionBarActivity implements
 
     @Override
     public void onMapReady(GoogleMap map) {
-        mUIGoogleMap = map;
-        mMapController = new MapController(mUIGoogleMap, this.getApplicationContext());
     }
 
     /**
